@@ -1,4 +1,4 @@
-package com.designerz.constants;
+package com.dcms.constants;
 
 public class CommonConstants {
 	

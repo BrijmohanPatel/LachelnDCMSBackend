@@ -1,9 +1,21 @@
-package com.dcms.bean;
+package com.dcms.modal;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class PatientData {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+
+@Entity(name="patients")
+//@Table(name="WORK_DATATABLE") // to change the name of the table
+public class Patients implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id   // To define the primary key column of the table
 	private String patient_id;
 	private String patient_name;
 	private String gender;
@@ -14,8 +26,6 @@ public class PatientData {
 	private String medical_history;
 	private String chief_complaint;
 	private String reg_date;
-	
-	
 	
 	public String getPatient_id() {
 		return patient_id;
@@ -65,7 +75,6 @@ public class PatientData {
 	public void setMedical_history(String medical_history) {
 		this.medical_history = medical_history;
 	}
-	
 	public String getChief_complaint() {
 		return chief_complaint;
 	}
@@ -80,12 +89,10 @@ public class PatientData {
 	}
 	@Override
 	public String toString() {
-		return "PatientData [patient_id=" + patient_id + ", patient_name=" + patient_name + ", gender=" + gender
+		return "Patients [patient_id=" + patient_id + ", patient_name=" + patient_name + ", gender=" + gender
 				+ ", mobile_number=" + mobile_number + ", age=" + age + ", occupation=" + occupation + ", address="
 				+ address + ", medical_history=" + medical_history + ", chief_complaint=" + chief_complaint
 				+ ", reg_date=" + reg_date + "]";
 	}
-	
-	
-	
+		
 }

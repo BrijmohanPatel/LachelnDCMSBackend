@@ -1,7 +1,4 @@
-package com.designerz.constants;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package com.dcms.constants;
 
 public  class  Constants {
 

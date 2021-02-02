@@ -1,11 +1,7 @@
 package com.dcms.dao;
 
-import java.io.*;
 import java.sql.SQLException;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import com.dcms.bean.*;
 
 @Component
