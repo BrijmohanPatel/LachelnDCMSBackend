@@ -30,8 +30,6 @@ public class RestController {
 	@RequestMapping(value = "/getResponseFormat", method = RequestMethod.GET)
 	public @ResponseBody ResponseBean getResponseFormat() throws Exception {
 			ResponseBean rb = new ResponseBean();
-			//rb.getData().getPatientdata().setAddress(address);
-			//rb.getData().getPatientdata().setAge(age);
 			System.out.println("RestController.getResponseFormat() ::  " + rb);
 			return rb;
 	}
@@ -40,6 +38,24 @@ public class RestController {
 	public @ResponseBody ResponseBean addPatient(@RequestBody ResponseBean responsebean) throws Exception {
 			System.out.println("RestController.addPatient() ::  " + responsebean);
 			return dentalservice.addPatient(responsebean);
+	}
+	
+	@RequestMapping(value = "/addTreatmentPlan", method = RequestMethod.POST)
+	public @ResponseBody ResponseBean addTreatmentPlan(@RequestBody ResponseBean responsebean) throws Exception {
+			System.out.println("RestController.addTreatmentPlan() ::  " + responsebean);
+			return dentalservice.addTreatmentPlan(responsebean);
+	}
+	
+	@RequestMapping(value = "/searchPatient", method = RequestMethod.POST)
+	public @ResponseBody ResponseBean searchPatient(@RequestBody ResponseBean responsebean) throws Exception {
+			System.out.println("RestController.searchPatient() ::  " + responsebean);
+			return dentalservice.searchPatient(responsebean);
+	}
+	
+	@RequestMapping(value = "/selectPatient", method = RequestMethod.POST)
+	public @ResponseBody ResponseBean selectPatient(@RequestBody ResponseBean responsebean) throws Exception {
+			System.out.println("RestController.selectPatient() ::  " + responsebean);
+			return dentalservice.selectPatient(responsebean);
 	}
 
 }

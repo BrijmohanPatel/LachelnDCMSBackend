@@ -3,7 +3,14 @@ package com.dcms.modal;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import com.dcms.utilities.StringPrefixedSequenceIdGenerator;
 
 
 @Entity(name="patients")
@@ -16,6 +23,13 @@ public class Patients implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id   // To define the primary key column of the table
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_seq")
+	@GenericGenerator(name = "patient_seq", strategy = "com.dcms.utilities.StringPrefixedSequenceIdGenerator",
+		parameters = { 
+				@Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "50"),
+				@Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "UNQ"),
+				@Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d")
+		})
 	private String patient_id;
 	private String patient_name;
 	private String gender;

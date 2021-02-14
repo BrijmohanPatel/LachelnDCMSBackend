@@ -20,6 +20,27 @@ public class DentalServiceImpl implements DentalService {
 		System.out.println("DentalServiceImpl.addPatient().");
 		return dentaldao.addPatient(responsebean);
 	}
+	
+	
+	@Override
+	public ResponseBean addTreatmentPlan(ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("DentalServiceImpl.addTreatmentPlan().");
+		return dentaldao.addTreatmentPlan(responsebean);
+	}
+
+
+	@Override
+	public ResponseBean searchPatient(ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("DentalServiceImpl.searchPatient().");
+		return dentaldao.searchPatient(responsebean);
+	}
+
+
+	@Override
+	public ResponseBean selectPatient(ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("DentalServiceImpl.selectPatient().");
+		return dentaldao.selectPatient(responsebean);
+	}
 
 	
 
