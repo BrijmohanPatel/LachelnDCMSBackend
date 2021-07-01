@@ -57,5 +57,16 @@ public class RestController {
 			System.out.println("RestController.selectPatient() ::  " + responsebean);
 			return dentalservice.selectPatient(responsebean);
 	}
-
+	
+	@RequestMapping(value = "/addTreatment", method = RequestMethod.POST)
+	public @ResponseBody ResponseBean addTreatment(@RequestBody ResponseBean responsebean) throws Exception {
+			System.out.println("RestController.addTreatment() ::  " + responsebean);
+			return dentalservice.addTreatment(responsebean);
+	}
+	
+	@RequestMapping(value = "/getTreatments", method = RequestMethod.POST)
+	public @ResponseBody ResponseBean getTreatments(@RequestBody ResponseBean responsebean) throws Exception {
+			System.out.println("RestController.getTreatments() ::  " + responsebean);
+			return dentalservice.getTreatments(responsebean);
+	}
 }

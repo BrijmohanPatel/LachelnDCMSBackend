@@ -17,6 +17,7 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(Patients.class); // this is important            
             configuration.addAnnotatedClass(TreatmentPlans.class); // this is important
             configuration.addAnnotatedClass(Plans.class); // this is important
+            configuration.addAnnotatedClass(Treatments.class); // this is important
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             // builds a session factory from the service registry
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);           

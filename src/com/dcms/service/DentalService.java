@@ -18,11 +18,11 @@ public interface DentalService {
 	
 	ResponseBean selectPatient(ResponseBean responsebean) throws SQLException, Exception;
 	
-	/*ResponseBean generateBill(ResponseBean responsebean) throws SQLException, Exception;
+	ResponseBean addTreatment(ResponseBean responsebean) throws SQLException, Exception;
 	
-	ResponseBean generatePDF(ResponseBean responsebean) throws SQLException, Exception;
+	ResponseBean getTreatments(ResponseBean responsebean) throws SQLException, Exception;
 
-	ResponseBean removeWork(ResponseBean responsebean) throws SQLException, Exception;
+	/*ResponseBean removeWork(ResponseBean responsebean) throws SQLException, Exception;
 
 	ResponseBean updateWork(ResponseBean responsebean) throws SQLException, Exception;
 	

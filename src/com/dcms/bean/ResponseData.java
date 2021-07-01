@@ -60,5 +60,27 @@ public class ResponseData {
 	
 	/*Search Patients ENDs*/
 	
+	/*Treatment Data */
+	
+	TreatmentData treatmentData = new TreatmentData();
+
+	public TreatmentData getTreatmentData() {
+		return treatmentData;
+	}
+	public void setTreatmentData(TreatmentData treatmentData) {
+		this.treatmentData = treatmentData;
+	}
+	
+	List<Treatments> treatmentsList;
+
+	public List<Treatments> getTreatmentsList() {
+		return treatmentsList;
+	}
+	public void setTreatmentsList(List<Treatments> treatmentsList) {
+		this.treatmentsList = treatmentsList;
+	}
+	
+	
+	/*Treatment Data ENDS*/
 	
 }

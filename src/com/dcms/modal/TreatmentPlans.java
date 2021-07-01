@@ -31,6 +31,7 @@ public class TreatmentPlans implements Serializable{
 	private String case_no;
 	private String total_amount;
 	private String reg_date;
+	private String status;
 		
 	public String getTp_id() {
 		return tp_id;
@@ -58,6 +59,13 @@ public class TreatmentPlans implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	@Transient //For any column needs not to be stored in DB

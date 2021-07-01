@@ -9,6 +9,7 @@ public class TreatmentPlanData {
 	List<PlansData> plans;
 	private String totalAmount;
 	private String reg_date;
+	private String status;
 	
 	public String getTp_id() {
 		return tp_id;
@@ -36,6 +37,12 @@ public class TreatmentPlanData {
 		this.reg_date = reg_date;
 	}
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public List<PlansData> getPlans() {
 		return plans;
 	}
