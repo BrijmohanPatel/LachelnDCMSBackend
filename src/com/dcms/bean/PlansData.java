@@ -2,13 +2,20 @@ package com.dcms.bean;
 
 public class PlansData {
 	
+	private Long tpu_id;
 	private String 	treatment;
 	private String	estimatedAmount;
 	private String  upperLeftTooth;
 	private String  upperRightTooth;
 	private String  lowerLeftTooth;
 	private String  lowerRightTooth;
-	
+		
+	public Long getTpu_id() {
+		return tpu_id;
+	}
+	public void setTpu_id(Long tpu_id) {
+		this.tpu_id = tpu_id;
+	}
 	public String getTreatment() {
 		return treatment;
 	}
@@ -45,13 +52,11 @@ public class PlansData {
 	public void setLowerRightTooth(String lowerRightTooth) {
 		this.lowerRightTooth = lowerRightTooth;
 	}
-		
 	@Override
 	public String toString() {
-		return "PlansData [treatment=" + treatment + ", estimatedAmount=" + estimatedAmount + ", upperLeftTooth="
-				+ upperLeftTooth + ", upperRightTooth=" + upperRightTooth + ", lowerLeftTooth=" + lowerLeftTooth
-				+ ", lowerRightTooth=" + lowerRightTooth + "]";
+		return "PlansData [tpu_id=" + tpu_id + ", treatment=" + treatment + ", estimatedAmount=" + estimatedAmount
+				+ ", upperLeftTooth=" + upperLeftTooth + ", upperRightTooth=" + upperRightTooth + ", lowerLeftTooth="
+				+ lowerLeftTooth + ", lowerRightTooth=" + lowerRightTooth + "]";
 	}
-	
 	
 }

@@ -34,7 +34,7 @@ public class Patients implements Serializable{
 	private String patient_name;
 	private String gender;
 	private Long mobile_number;
-	private int age;
+	private Integer age;
 	private String occupation;
 	private String address;
 	private String medical_history;

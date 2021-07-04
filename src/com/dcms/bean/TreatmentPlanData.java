@@ -49,5 +49,9 @@ public class TreatmentPlanData {
 	public void setPlans(List<PlansData> plans) {
 		this.plans = plans;
 	}
-		
+	@Override
+	public String toString() {
+		return "TreatmentPlanData [tp_id=" + tp_id + ", caseNo=" + caseNo + ", plans=" + plans + ", totalAmount="
+				+ totalAmount + ", reg_date=" + reg_date + ", status=" + status + "]";
+	}
 }
