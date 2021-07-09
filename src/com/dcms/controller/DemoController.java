@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dcms.bean.*;
 
 @Controller
-public class RestController {
+public class DemoController {
 	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)

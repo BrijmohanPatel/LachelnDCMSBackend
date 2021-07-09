@@ -14,5 +14,8 @@ public interface TreatmentPlanService {
 	
 	ResponseBean updateTreatmentPlan(ResponseBean responsebean) throws SQLException, Exception;
 	
+	ResponseBean deteleTreatmentPlan(ResponseBean responsebean) throws SQLException, Exception;
+
+	
 
 }

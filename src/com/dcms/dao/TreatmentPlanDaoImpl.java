@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
 import com.dcms.bean.PlansData;
@@ -142,6 +143,50 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 	        session.close();
 	    }
 	    
+		return responsebean;
+	}
+
+	@Override
+	public ResponseBean deleteTreatmentPlan(String tpID) throws SQLException, Exception {
+		
+		ResponseBean responsebean = new ResponseBean();
+		System.out.println("TreatmentPlanDaoImpl.deleteTreatmentPlan");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+	    Transaction tx = session.beginTransaction();
+		try {
+			String hql = "FROM treatment_plan_units where tp_id =: tp_ID";
+			Query createQuery = session.createQuery(hql);
+			createQuery.setParameter("tp_ID", tpID);
+			List tp_unit = createQuery.list();
+			if(tp_unit.size() > 0) {
+				responsebean.setMessage("Cannot delete treatment plan. First delete plans.");
+		        responsebean.setStatus(CommonConstants.FAILED);
+		        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+			}else {
+				TreatmentPlans treatmentPlan = session.get(TreatmentPlans.class, tpID);
+				if(treatmentPlan != null) {
+					session.delete(treatmentPlan);
+					System.out.println("treatment plan "+tpID+" deleted");
+					responsebean.setMessage("Treatment plan deteled.");
+			        responsebean.setStatus(CommonConstants.FAILED);
+			        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+				}
+			}
+			
+			tx.commit();
+			
+		}catch(Exception e) {
+	    	System.out.println(e.getMessage());
+	    	if (tx != null) tx.rollback();
+	        e.printStackTrace();
+	        responsebean.setMessage("Failed to delete treatment Plan");
+	        responsebean.setStatus(CommonConstants.FAILED);
+	        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+	    } finally {
+	        session.close();
+	    }
+		
+		
 		return responsebean;
 	}
 

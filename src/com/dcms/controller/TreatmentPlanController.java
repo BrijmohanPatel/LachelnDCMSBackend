@@ -1,10 +1,14 @@
 package com.dcms.controller;
 
+import java.lang.annotation.Annotation;
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dcms.bean.ResponseBean;
@@ -27,11 +31,16 @@ public class TreatmentPlanController {
 	}
 	
 	@RequestMapping(value="/updateTreatmentPlan", method= RequestMethod.POST)
-	@ResponseBody
-	public ResponseBean UpdateTreatmentPlan(@RequestBody ResponseBean responsebean) throws Exception {
+	public @ResponseBody ResponseBean UpdateTreatmentPlan(@RequestBody ResponseBean responsebean) throws Exception {
 		System.out.println("TreatmentPlanController.UpdateTreatmentPlan() :: "+gson.toJson(responsebean));
-		//System.out.println("treatmentPlanList"+gson.toJson(treatmentPlanList))
 		return treatmentPlanService.updateTreatmentPlan(responsebean);
+	}
+	
+	
+	@RequestMapping(value="/deleteTreatmentPlan", method = RequestMethod.POST)
+	public @ResponseBody ResponseBean deteleTreatmentPlan(@RequestBody ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("TreatmentPlanController.deteleTreatmentPlan() :: "+gson.toJson(responsebean));
+		return treatmentPlanService.deteleTreatmentPlan(responsebean);
 	}
 	
 }
