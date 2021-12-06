@@ -168,8 +168,8 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 					session.delete(treatmentPlan);
 					System.out.println("treatment plan "+tpID+" deleted");
 					responsebean.setMessage("Treatment plan deteled.");
-			        responsebean.setStatus(CommonConstants.FAILED);
-			        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+			        responsebean.setStatus(CommonConstants.SUCCESS);
+			        responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
 				}
 			}
 			

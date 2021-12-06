@@ -1,5 +1,7 @@
 package com.dcms.controller;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,4 +35,25 @@ public class PatientsController {
 			System.out.println("PatientsController.selectPatient() ::  " + responsebean);
 			return patientsService.selectPatient(responsebean);
 	}
+	
+	@RequestMapping(value = "/getAllPatients", method = RequestMethod.GET)
+	public @ResponseBody ResponseBean getAllPatients() throws Exception {
+			System.out.println("PatientsController.getAllPatients() called");
+			return patientsService.getAllPatients();
+	}
+	
+	@RequestMapping(value="/updatePatient", method= RequestMethod.POST)
+	public @ResponseBody ResponseBean updatePatient(@RequestBody ResponseBean responsebean) throws Exception {
+		System.out.println("PatientsController.updatePatient() :: ");
+		return patientsService.updatePatient(responsebean);
+	}
+	
+	
+	@RequestMapping(value="/deletePatient", method = RequestMethod.POST)
+	public @ResponseBody ResponseBean deletePatient(@RequestBody ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("PatientsController.deletePatient() :: ");
+		return patientsService.deletePatient(responsebean);
+	}
+	
+	
 }

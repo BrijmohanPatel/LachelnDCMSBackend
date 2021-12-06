@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
+import com.dcms.bean.PlansData;
 import com.dcms.bean.ResponseBean;
 import com.dcms.constants.CommonConstants;
 import com.dcms.modal.Patients;
@@ -30,7 +31,7 @@ public class PatientsDaoImpl implements PatientsDao {
 	
 	 @Override
 	  public ResponseBean addPatient(ResponseBean responsebean) {
-	    System.out.println("DentalDaoImpl.addPatient()");
+	    System.out.println("PatientsDaoImpl.addPatient()");
 	    Session session = HibernateUtil.getSessionFactory().openSession();
 	    Transaction tx = session.beginTransaction();
 	    Patients patient = new Patients();
@@ -74,7 +75,7 @@ public class PatientsDaoImpl implements PatientsDao {
 	 @SuppressWarnings("null")
 		@Override
 		public ResponseBean searchPatient(ResponseBean responsebean) throws SQLException, Exception {
-			System.out.println("DentalDaoImpl.searchPatient()");		
+			System.out.println("PatientsDaoImpl.searchPatient()");		
 			Session session = HibernateUtil.getSessionFactory().openSession();
 		    Transaction tx = session.beginTransaction();
 		    try{
@@ -135,7 +136,7 @@ public class PatientsDaoImpl implements PatientsDao {
 		@SuppressWarnings("unchecked")
 		@Override
 		public ResponseBean selectPatient(ResponseBean responsebean) throws SQLException, Exception {
-			System.out.println("DentalDaoImpl.selectPatient()");
+			System.out.println("PatientsDaoImpl.selectPatient()");
 			Session session = HibernateUtil.getSessionFactory().openSession();
 		    Transaction tx = session.beginTransaction();
 		    try{
@@ -166,7 +167,7 @@ public class PatientsDaoImpl implements PatientsDao {
 		    }catch(Exception e) {
 		    	if (tx != null) tx.rollback();
 		        e.printStackTrace();
-		        responsebean.setMessage("Failed to search patient!");
+		        responsebean.setMessage("Failed to select patient!");
 		        responsebean.setStatus(CommonConstants.FAILED);
 		        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
 		    } finally {
@@ -175,4 +176,145 @@ public class PatientsDaoImpl implements PatientsDao {
 			return responsebean;
 		}
 
+		@Override
+		public ResponseBean getAllPatients() throws SQLException, Exception {
+			System.out.println("PatientsDaoImpl.getAllPatients()");
+			ResponseBean responsebean = new ResponseBean();
+			
+			Session session = HibernateUtil.getSessionFactory().openSession();
+		    Transaction tx = session.beginTransaction();
+		 
+		    try{
+		    	Query query = session.createQuery("from patients order by reg_Date desc");
+		    	System.out.println("check 3");
+		    	 patientsList = query.list();
+		    	 tx.commit();
+		    	 
+				 responsebean.setMessage("Successfully fetched Patients!");
+				
+				 responsebean.setStatus(CommonConstants.SUCCESS);
+				 
+			     responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
+			    
+			     responsebean.getData().setPatientsList(patientsList);
+			       
+		    }catch(Exception e) {
+		    	System.out.println(e);
+		    	if (tx != null) tx.rollback();
+		        e.printStackTrace();
+		        responsebean.setMessage("Failed to get patient!");
+		        responsebean.setStatus(CommonConstants.FAILED);
+		        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+		        
+		    }finally {
+		    	System.out.println("check 10");
+		    	session.close();
+		    }
+			return responsebean;
+		}
+
+		@Override
+		public ResponseBean updatePatient(ResponseBean responsebean) throws SQLException, Exception {
+			System.out.println("PatientsDaoImpl.updatePatient");
+			Session session = HibernateUtil.getSessionFactory().openSession();
+		    Transaction tx = session.beginTransaction();
+		    try {
+		    	Patients patients = session.load(Patients.class, responsebean.getData().getPatientdata().getPatient_id());
+		    	if(patients != null) {
+		    		
+		    		if(responsebean.getData().getPatientdata().getPatient_name() != null) {
+		    			patients.setPatient_name(responsebean.getData().getPatientdata().getPatient_name());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getAge() > 0) {
+		    			patients.setAge(responsebean.getData().getPatientdata().getAge());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getAddress() != null) {
+		    			patients.setAddress(responsebean.getData().getPatientdata().getAddress());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getChief_complaint() != null) {
+		    			patients.setChief_complaint(responsebean.getData().getPatientdata().getChief_complaint());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getGender() != null) {
+		    			patients.setGender(responsebean.getData().getPatientdata().getGender());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getMedical_history() != null) {
+		    			patients.setMedical_history(responsebean.getData().getPatientdata().getMedical_history());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getMobile_number() != null) {
+		    			patients.setMobile_number(responsebean.getData().getPatientdata().getMobile_number());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getOccupation() != null) {
+		    			patients.setOccupation(responsebean.getData().getPatientdata().getOccupation());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getReg_date() != null) {
+		    			patients.setReg_date(responsebean.getData().getPatientdata().getReg_date());
+		    		}
+		    		
+			    	session.update(patients);
+			    	responsebean.setStatus(CommonConstants.SUCCESS);
+			        responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
+			    	responsebean.setMessage("Patients updated successfully");
+		    	}else {
+		    		responsebean.setStatus(CommonConstants.FAILED);
+		    		responsebean.setMessage("Patients not updated.");
+		    		responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+		    	}
+		    	tx.commit();    	
+		    }catch(Exception e) {
+		    	System.out.println(e.getMessage());
+		    	if (tx != null) tx.rollback();
+		        	e.printStackTrace();
+		        responsebean.setMessage("Failed to update Patients");
+		        responsebean.setStatus(CommonConstants.FAILED);
+		        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+		    } finally {
+		        session.close();
+		    }
+		    
+			return responsebean;
+		}
+
+		@Override
+		public ResponseBean deletePatient(ResponseBean responsebean) throws SQLException, Exception {
+			
+			System.out.println("PatientsDaoImpl.deletePatient");
+			Session session = HibernateUtil.getSessionFactory().openSession();
+		    Transaction tx = session.beginTransaction();
+			try {
+				String pID = responsebean.getData().getPatientdata().getPatient_id();
+					Patients dPatient = session.get(Patients.class, pID);
+					if(dPatient != null) {
+						session.delete(dPatient);
+						System.out.println("Patient "+pID+" deleted");
+						responsebean.setMessage("Patient deteled.");
+				        responsebean.setStatus(CommonConstants.SUCCESS);
+				        responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
+				    }else {
+				    	responsebean.setMessage("Patient not deteled.");
+				        responsebean.setStatus(CommonConstants.FAILED);
+				        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+				    }
+				
+				tx.commit();
+				
+			}catch(Exception e) {
+		    	System.out.println(e.getMessage());
+		    	if (tx != null) tx.rollback();
+		        e.printStackTrace();
+		        responsebean.setMessage("Failed to delete Patient");
+		        responsebean.setStatus(CommonConstants.FAILED);
+		        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
+		    } finally {
+		        session.close();
+		    }
+			return responsebean;
+		}
 }
