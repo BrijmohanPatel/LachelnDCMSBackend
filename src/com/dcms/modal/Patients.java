@@ -39,6 +39,8 @@ public class Patients implements Serializable{
 	private String address;
 	private String medical_history;
 	private String chief_complaint;
+	private String intra_oral_examination;
+	
 	private String reg_date;
 	
 	public String getPatient_id() {
@@ -95,6 +97,12 @@ public class Patients implements Serializable{
 	public void setChief_complaint(String chief_complaint) {
 		this.chief_complaint = chief_complaint;
 	}
+	public String getIntra_oral_examination() {
+		return intra_oral_examination;
+	}
+	public void setIntra_oral_examination(String intra_oral_examination) {
+		this.intra_oral_examination = intra_oral_examination;
+	}
 	public String getReg_date() {
 		return reg_date;
 	}
@@ -106,7 +114,8 @@ public class Patients implements Serializable{
 		return "Patients [patient_id=" + patient_id + ", patient_name=" + patient_name + ", gender=" + gender
 				+ ", mobile_number=" + mobile_number + ", age=" + age + ", occupation=" + occupation + ", address="
 				+ address + ", medical_history=" + medical_history + ", chief_complaint=" + chief_complaint
-				+ ", reg_date=" + reg_date + "]";
+				+ ", intra_oral_examination=" + intra_oral_examination + ", reg_date=" + reg_date + "]";
 	}
+	
 		
 }

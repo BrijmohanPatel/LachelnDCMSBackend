@@ -30,8 +30,8 @@ public class TreatmentPlanServiceImpl implements TreatmentPlanService {
 	@Override
 	public ResponseBean deteleTreatmentPlan(ResponseBean responsebean) throws SQLException, Exception {
 		System.out.println("TreatmentPlanServiceImpl.updateTreatmentPlan().");
-		String tpID = responsebean.getData().getTreatmentPlanData().getTp_id();
-		return treatmentPlanDao.deleteTreatmentPlan(tpID);
+		String tpuID = responsebean.getData().getPlandata().getTpu_id();
+		return treatmentPlanDao.deleteTreatmentPlan(tpuID);
 	}
 
 

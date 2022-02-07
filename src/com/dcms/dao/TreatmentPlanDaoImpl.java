@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
+import org.springframework.util.SystemPropertyUtils;
 
 import com.dcms.bean.PlansData;
 import com.dcms.bean.ResponseBean;
@@ -29,6 +30,7 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 	  List<TreatmentPlans> treatmentPlanList = null;
 	  List<Plans> plans = null;
 	  List<Treatments> treatments = null;
+	  
 	      
 	
 	@Override
@@ -42,6 +44,8 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 	    	tplans.setTotal_amount(responsebean.getData().getTreatmentPlanData().getTotalAmount());
 	    	tplans.setReg_date(formatedTodaysDate("yyyy-MM-dd"));
 	    	tplans.setStatus("ACTIVE");
+	    	tplans.setTotal_balance_amount(responsebean.getData().getTreatmentPlanData().getTotalAmount());
+	    	tplans.setTotal_paid_amount("0");
 	    	session.save(tplans);
 	    	
 	    	for(PlansData plandata: responsebean.getData().getTreatmentPlanData().getPlans()) {
@@ -72,7 +76,7 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 	    }  
 		return responsebean;
 	}
-  
+	  
 	 public String formatedTodaysDate(String format) {
 		  System.out.println("TreatmentPlanDaoImpl.formatedTodaysDate");
 		  	Date date = new Date();
@@ -88,27 +92,27 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 	    Transaction tx = session.beginTransaction();
 	    try {
-	    	
+	    	    	
 	    	TreatmentPlans trtplan = session.get(TreatmentPlans.class, responsebean.getData().getTreatmentPlanData().getTp_id());
 	    	
 	    	
 	    	if(trtplan != null) {
-
 		    	trtplan.setTotal_amount(responsebean.getData().getTreatmentPlanData().getTotalAmount());
+		    	Long totalbalance = (Long.parseLong(responsebean.getData().getTreatmentPlanData().getTotalAmount())- Long.parseLong(trtplan.getTotal_paid_amount()));
+		    	trtplan.setTotal_balance_amount(totalbalance.toString());
 		    	session.update(trtplan);
 		    	
 		    	List<PlansData> plansData = responsebean.getData().getTreatmentPlanData().getPlans();
 		    	
 		    	plansData.forEach(plans ->{
 		    		Plans plan = new Plans();
-		    		
-		    		if(plans.getTpu_id() != null && plans.getTpu_id() != 0) {
+		    		System.out.println("***************"+plans);
+		    		if(plans.getTpu_id() != "" && plans.getTpu_id() != null) {
 		    			plan = session.get(Plans.class, plans.getTpu_id());
 		    			
 		    		}else {
 		    			plan.setTp_id(responsebean.getData().getTreatmentPlanData().getTp_id());
 		    		}
-		    		
 		    		plan.setTreatment(plans.getTreatment());
 		    		plan.setEstimatedAmount(plans.getEstimatedAmount());
 		    		plan.setUpperLeftTooth(plans.getUpperLeftTooth());
@@ -118,6 +122,21 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 		    		session.saveOrUpdate(plan);
 		    		
 		    	});
+		    	
+		    	Query query = session.createQuery("from treatments where tp_id =:tp_id_param order by treatment_added_date asc");
+		        query.setParameter("tp_id_param", trtplan.getTp_id());
+		        treatments = query.list();
+		        System.out.println("treatmentList is fetched :"+treatments);
+		        
+		        if(treatments.size() > 0) {
+		        	treatments = updateTreamentValuesManager(treatments, trtplan.getTotal_amount());
+		        	for(Treatments trt : treatments) {
+			    		System.out.println("Inside for each loop"+gson.toJson(trt));
+			    		session.update(trt);
+			    	}
+		        }
+		        
+		        
 		    	
 		    	responsebean.setStatus(CommonConstants.SUCCESS);
 		        responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
@@ -145,32 +164,65 @@ public class TreatmentPlanDaoImpl implements TreatmentPlanDao {
 	    
 		return responsebean;
 	}
+	
+	
+	public List<Treatments> updateTreamentValuesManager(List<Treatments> oldList , String totalAmount){
+		List<Treatments> newList = oldList;
+		Long totalPaid = 0L;
+		Long totalBalance = 0L;
+		
+		for(int i=0;i<oldList.size();i++) {
+			totalPaid = Long.parseLong(oldList.get(i).getPaid_amount());
+					
+			totalBalance = Long.parseLong(totalAmount) - totalPaid;
+			newList.get(i).setBalance_amount(totalBalance.toString());	
+		}
+		return newList;
+	}
 
+	@SuppressWarnings("unused")
 	@Override
-	public ResponseBean deleteTreatmentPlan(String tpID) throws SQLException, Exception {
+	public ResponseBean deleteTreatmentPlan(String tpuID) throws SQLException, Exception {
 		
 		ResponseBean responsebean = new ResponseBean();
 		System.out.println("TreatmentPlanDaoImpl.deleteTreatmentPlan");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 	    Transaction tx = session.beginTransaction();
 		try {
-			String hql = "FROM treatment_plan_units where tp_id =: tp_ID";
-			Query createQuery = session.createQuery(hql);
-			createQuery.setParameter("tp_ID", tpID);
-			List tp_unit = createQuery.list();
-			if(tp_unit.size() > 0) {
-				responsebean.setMessage("Cannot delete treatment plan. First delete plans.");
-		        responsebean.setStatus(CommonConstants.FAILED);
-		        responsebean.setStatusCode(CommonConstants.STATUSCODE_9000);
-			}else {
-				TreatmentPlans treatmentPlan = session.get(TreatmentPlans.class, tpID);
-				if(treatmentPlan != null) {
+			
+			Plans plan = session.get(Plans.class, tpuID);
+			TreatmentPlans treatmentPlan = session.get(TreatmentPlans.class, plan.getTp_id());
+			if(plan != null) {
+				String hql_u = "FROM treatment_plan_units where tp_ID =: tp_ID";
+				Query createQuery_u = session.createQuery(hql_u);
+				createQuery_u.setParameter("tp_ID", plan.getTp_id());
+				List tp_units = createQuery_u.list();
+				if(tp_units.size() == 1) {
 					session.delete(treatmentPlan);
-					System.out.println("treatment plan "+tpID+" deleted");
-					responsebean.setMessage("Treatment plan deteled.");
-			        responsebean.setStatus(CommonConstants.SUCCESS);
-			        responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
+				}else {
+					String TotalAmount = treatmentPlan.getTotal_amount();
+					long TotalAmountLongValue = Long.parseLong(TotalAmount);
+					
+					String unitAmount = plan.getEstimatedAmount();
+					long unitAmountLongValue = Long.parseLong(unitAmount);
+					
+					TotalAmountLongValue = TotalAmountLongValue - unitAmountLongValue;
+					
+					treatmentPlan.setTotal_amount(String.valueOf(TotalAmountLongValue));
+					session.update(treatmentPlan);
+
 				}
+				
+				session.delete(plan);
+				System.out.println("deleted plan is "+plan);
+				responsebean.setMessage("Treatment plan unit deteled");
+		        responsebean.setStatus(CommonConstants.SUCCESS);
+		        responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
+		        
+			}else {
+				responsebean.setMessage("Treatment plan unit not present in DB.");
+		        responsebean.setStatus(CommonConstants.SUCCESS);
+		        responsebean.setStatusCode(CommonConstants.STATUSCODE_200);
 			}
 			
 			tx.commit();

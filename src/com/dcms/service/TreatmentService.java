@@ -13,5 +13,9 @@ ResponseBean addTreatment(ResponseBean responsebean) throws SQLException, Except
 	
 	ResponseBean getTreatments(ResponseBean responsebean) throws SQLException, Exception;
 
+	ResponseBean deleteTreatment(ResponseBean responsebean) throws SQLException, Exception;
+
+	ResponseBean updateTreatment(ResponseBean responsebean) throws SQLException, Exception;
+
 
 }

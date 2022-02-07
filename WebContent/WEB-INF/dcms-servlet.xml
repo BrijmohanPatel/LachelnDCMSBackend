@@ -18,16 +18,15 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<!-- View Resolver -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/DENTALVIEW/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
 	<context:property-placeholder location="classpath:config.properties"/>
 	
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:messages" />
 	</bean>
+
   </beans>

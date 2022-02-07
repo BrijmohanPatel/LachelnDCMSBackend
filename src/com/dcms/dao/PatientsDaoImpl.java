@@ -8,7 +8,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
-import com.dcms.bean.PlansData;
 import com.dcms.bean.ResponseBean;
 import com.dcms.constants.CommonConstants;
 import com.dcms.modal.Patients;
@@ -46,6 +45,7 @@ public class PatientsDaoImpl implements PatientsDao {
 	        patient.setOccupation(responsebean.getData().getPatientdata().getOccupation());
 	        patient.setMedical_history(responsebean.getData().getPatientdata().getMedical_history());
 	        patient.setChief_complaint(responsebean.getData().getPatientdata().getChief_complaint());
+	        patient.setIntra_oral_examination(responsebean.getData().getPatientdata().getIntra_oral_examination());
 	        String pID = (String)session.save(patient);
 	        if(!pID.isEmpty()) {
 	         /*   String searchQuery = "from patients WHERE patient_id =:patient_id_param";
@@ -148,15 +148,42 @@ public class PatientsDaoImpl implements PatientsDao {
 					query = session.createQuery("from treatment_plans WHERE case_no =:case_no");
 					query.setParameter("case_no",caseNo);
 					treatmentPlanList = query.list();
+					
 					System.out.println("treatmentPlanList"+gson.toJson(treatmentPlanList));
 					
-					for(TreatmentPlans treatmentPlans : treatmentPlanList) {
+/*					for(TreatmentPlans treatmentPlans : treatmentPlanList) {
 						query = session.createQuery("from treatment_plan_units WHERE tp_id =:tp_id");
 						query.setParameter("tp_id",treatmentPlans.getTp_id());
 						plans = query.list();
 						System.out.println("value of pd is"+gson.toJson(plans));
 						treatmentPlans.setPlans(plans);
+						
+						query = session.createQuery("from treatments WHERE tp_id =:tp_id");
+						query.setParameter("tp_id",treatmentPlans.getTp_id());
+						treatments = query.list();
+						if(treatments.size() > 0) {
+							treatmentPlans.setTreatment_start_date(treatments.get(0).getTreatment_date());
+							treatmentPlans.setTreatment_end_date(treatments.get(treatments.size()-1).getTreatment_date());
+						}
+									
 					}
+					
+*/					
+					for(int i=0;i<treatmentPlanList.size();i++) {
+						query = session.createQuery("from treatment_plan_units WHERE tp_id =:tp_id");
+						query.setParameter("tp_id",treatmentPlanList.get(i).getTp_id());
+						plans = query.list();
+						treatmentPlanList.get(i).setPlans(plans);
+						query = session.createQuery("from treatments WHERE tp_id =:tp_id");
+						query.setParameter("tp_id",treatmentPlanList.get(i).getTp_id());
+						treatments = query.list();
+						if(treatments.size() > 0) {
+							treatmentPlanList.get(i).setTreatment_start_date(treatments.get(0).getTreatment_date());
+							treatmentPlanList.get(i).setTreatment_end_date(treatments.get(treatments.size()-1).getTreatment_date());
+						}
+					}
+					
+					
 				}
 				 tx.commit();
 				 responsebean.setMessage("Successfully fetched TreatmentPlans!");
@@ -244,6 +271,10 @@ public class PatientsDaoImpl implements PatientsDao {
 		    		
 		    		if(responsebean.getData().getPatientdata().getMedical_history() != null) {
 		    			patients.setMedical_history(responsebean.getData().getPatientdata().getMedical_history());
+		    		}
+		    		
+		    		if(responsebean.getData().getPatientdata().getIntra_oral_examination() != null) {
+		    			patients.setIntra_oral_examination(responsebean.getData().getPatientdata().getIntra_oral_examination());
 		    		}
 		    		
 		    		if(responsebean.getData().getPatientdata().getMobile_number() != null) {

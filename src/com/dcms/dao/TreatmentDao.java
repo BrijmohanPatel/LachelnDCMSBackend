@@ -13,4 +13,8 @@ public interface TreatmentDao {
 	
 	ResponseBean getTreatments(ResponseBean responsebean) throws SQLException, Exception;
 
+	ResponseBean deleteTreatment(ResponseBean responsebean) throws SQLException, Exception;
+
+	ResponseBean updateTreatment(ResponseBean responsebean) throws SQLException, Exception;
+
 }

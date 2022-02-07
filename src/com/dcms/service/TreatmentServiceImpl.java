@@ -29,5 +29,19 @@ public class TreatmentServiceImpl implements TreatmentService{
 		System.out.println("TreatmentServiceImpl.getTreatments().");
 		return treatmentdao.getTreatments(responsebean);
 	}
+
+
+	@Override
+	public ResponseBean deleteTreatment(ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("TreatmentServiceImpl.deleteTreatment().");
+		return treatmentdao.deleteTreatment(responsebean);
+	}
+
+
+	@Override
+	public ResponseBean updateTreatment(ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("TreatmentServiceImpl.updateTreatment().");
+		return treatmentdao.updateTreatment(responsebean);
+	}
 	
 }

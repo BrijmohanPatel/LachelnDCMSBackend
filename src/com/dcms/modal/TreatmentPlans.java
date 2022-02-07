@@ -30,8 +30,29 @@ public class TreatmentPlans implements Serializable{
 	private String tp_id;
 	private String case_no;
 	private String total_amount;
+	private String total_balance_amount;
+	private String total_paid_amount;
 	private String reg_date;
 	private String status;
+	
+	@Transient
+	private String treatment_start_date;
+	
+	@Transient
+	private String treatment_end_date;
+	
+	public String getTreatment_start_date() {
+		return treatment_start_date;
+	}
+	public void setTreatment_start_date(String treatment_start_date) {
+		this.treatment_start_date = treatment_start_date;
+	}
+	public String getTreatment_end_date() {
+		return treatment_end_date;
+	}
+	public void setTreatment_end_date(String treatment_end_date) {
+		this.treatment_end_date = treatment_end_date;
+	}
 		
 	public String getTp_id() {
 		return tp_id;
@@ -67,6 +88,20 @@ public class TreatmentPlans implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getTotal_balance_amount() {
+		return total_balance_amount;
+	}
+	public void setTotal_balance_amount(String total_balance_amount) {
+		this.total_balance_amount = total_balance_amount;
+	}
+	public String getTotal_paid_amount() {
+		return total_paid_amount;
+	}
+	public void setTotal_paid_amount(String total_paid_amount) {
+		this.total_paid_amount = total_paid_amount;
+	}
+	
 	
 	@Transient //For any column needs not to be stored in DB
 	private List<Plans> plans;

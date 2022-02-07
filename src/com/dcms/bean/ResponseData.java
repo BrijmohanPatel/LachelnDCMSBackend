@@ -7,7 +7,7 @@ import com.dcms.modal.*;
 public class ResponseData {
 	
 	/*Patient data getter setter*/ 
-	PatientData patientdata;
+	PatientData patientdata = new PatientData();
 	
 	public PatientData getPatientdata() {
 		return patientdata;
@@ -28,7 +28,7 @@ public class ResponseData {
 	
 	
 	/*TreatmentPlanData getter setter*/
-	TreatmentPlanData treatmentPlanData;
+	TreatmentPlanData treatmentPlanData  = new TreatmentPlanData();
 
 	public TreatmentPlanData getTreatmentPlanData() {
 		return treatmentPlanData;
@@ -46,8 +46,18 @@ public class ResponseData {
 		this.treatmentPlanList = treatmentPlanList;
 	}
 	
-	/*TreatmentPlanData getter setter ENDs*/
 	
+	PlansData plandata = new PlansData();
+	
+	public PlansData getPlandata() {
+		return plandata;
+	}
+	public void setPlandata(PlansData plandata) {
+		this.plandata = plandata;
+	}
+	
+	/*TreatmentPlanData getter setter ENDs*/
+
 	/*Search Patients*/
 	SearchPatients searchPatients  = new SearchPatients();
 
@@ -80,7 +90,51 @@ public class ResponseData {
 		this.treatmentsList = treatmentsList;
 	}
 	
-	
 	/*Treatment Data ENDS*/
+	
+	/* Treatment Master Start */
+	
+	TreatmentMasterData treatmentMasterData = new TreatmentMasterData();
+
+	public TreatmentMasterData getTreatmentMasterData() {
+		return treatmentMasterData;
+	}
+	public void setTreatmentMasterData(TreatmentMasterData treatmentMasterData) {
+		this.treatmentMasterData = treatmentMasterData;
+	}
+
+	List<TreatmentMaster> treatmentMasterList;
+
+	public List<TreatmentMaster> getTreatmentMasterList() {
+		return treatmentMasterList;
+	}
+	public void setTreatmentMasterList(List<TreatmentMaster> treatmentMasterList) {
+		this.treatmentMasterList = treatmentMasterList;
+	}
+	/* Treatment Master Start END */
+	
+	/* Work Master start */
+	
+	WorkDoneMasterData workdoneMasterData = new WorkDoneMasterData();
+
+	public WorkDoneMasterData getWorkdoneMasterData() {
+		return workdoneMasterData;
+	}
+	public void setWorkdoneMasterData(WorkDoneMasterData workdoneMasterData) {
+		this.workdoneMasterData = workdoneMasterData;
+	}
+
+	List<WorkdoneMaster> workdoneMasterList;
+
+	public List<WorkdoneMaster> getWorkdoneMasterList() {
+		return workdoneMasterList;
+	}
+	public void setWorkdoneMasterList(List<WorkdoneMaster> workdoneMasterList) {
+		this.workdoneMasterList = workdoneMasterList;
+	}
+	
+	/* work master end */
+	
+	
 	
 }

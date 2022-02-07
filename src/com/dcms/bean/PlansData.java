@@ -2,7 +2,7 @@ package com.dcms.bean;
 
 public class PlansData {
 	
-	private Long tpu_id;
+	private String tpu_id;
 	private String 	treatment;
 	private String	estimatedAmount;
 	private String  upperLeftTooth;
@@ -10,10 +10,10 @@ public class PlansData {
 	private String  lowerLeftTooth;
 	private String  lowerRightTooth;
 		
-	public Long getTpu_id() {
+	public String getTpu_id() {
 		return tpu_id;
 	}
-	public void setTpu_id(Long tpu_id) {
+	public void setTpu_id(String tpu_id) {
 		this.tpu_id = tpu_id;
 	}
 	public String getTreatment() {

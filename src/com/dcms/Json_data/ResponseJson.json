@@ -1,0 +1,97 @@
+{
+  "message": "Treatment fetched  successfully",
+  "fileName": null,
+  "data": {
+    "patientsList": [
+      {
+        "address": "Dr. baba saheb ambedkar nagar no-2, near panvel highway road, Above Patel hotel, mankhurd mumbai-400043",
+        "medical_history": "cjbdsk",
+        "chief_complaint": "kjdbccd s d",
+        "reg_date": "2021-11-02",
+        "patient_name": "Rajkumar hiranandani raj bhar",
+        "occupation": "Driver",
+        "mobile_number": 9930988978,
+        "gender": "Male",
+        "age": 25,
+        "patient_id": "UNQ00355"
+      }
+    ],
+    "treatmentPlanList": [
+      {
+        "total_paid_amount": "100000",
+        "case_no": "UNQ00355",
+        "status": "CLOSED",
+        "treatment_end_date": "2021-12-02",
+        "treatment_start_date": "2021-12-01",
+        "total_balance_amount": "100000",
+        "reg_date": "2021-12-25",
+        "tp_id": "TP01802",
+        "plans": [
+          {
+            "lowerRightTooth": "2,1",
+            "lowerLeftTooth": "3,1,2",
+            "upperRightTooth": "2,1",
+            "upperLeftTooth": "3,1,2",
+            "estimatedAmount": "100000",
+            "tp_id": "TP01802",
+            "treatment": "X-ray",
+            "tpu_id": "TPU01352"
+          },
+          {
+            "lowerRightTooth": "2,1",
+            "lowerLeftTooth": "3,1,2",
+            "upperRightTooth": "2,1",
+            "upperLeftTooth": "3,1,2",
+            "estimatedAmount": "100000",
+            "tp_id": "TP01802",
+            "treatment": "Root Canal Treatment",
+            "tpu_id": "TPU01352"
+          }
+        ],
+        "total_amount": "200000"
+      }
+    ],
+    "treatmentsList": [
+      {
+        "lowerRightTooth": "1,2",
+        "lowerLeftTooth": "1,2",
+        "balance_amount": "90000",
+        "upperRightTooth": "1,2",
+        "upperLeftTooth": "1,2",
+        "treatment_date": "2021-12-01",
+        "payment_on_date": "10000",
+        "treatment_added_date": "2021-12-25 17:27:41",
+        "patient_id": "UNQ00355",
+        "tp_id": "TP01802",
+        "work_done": "Occulus Reduction Done",
+        "paid_amount": "10000",
+        "t_id": "TRT01306"
+      },
+      {
+        "lowerRightTooth": "2",
+        "lowerLeftTooth": "1",
+        "balance_amount": "0",
+        "upperRightTooth": "2",
+        "upperLeftTooth": "1",
+        "treatment_date": "2021-12-02",
+        "payment_on_date": "90000",
+        "treatment_added_date": "2021-12-25 18:12:05",
+        "patient_id": "UNQ00355",
+        "tp_id": "TP01802",
+        "work_done": "Access Opening Done",
+        "paid_amount": "100000",
+        "t_id": "TRT01309"
+      }
+    ]
+  },
+  "userName": null,
+  "action": "getTreatments",
+  "statusCode": "200",
+  "status": "success",
+  "fileData": null,
+  "accessToken": null,
+  "email": null,
+  "userId": 0,
+  "userCode": null,
+  "mobile": null
+}

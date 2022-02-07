@@ -10,7 +10,7 @@ public class TreatmentPlanData {
 	private String totalAmount;
 	private String reg_date;
 	private String status;
-	
+		
 	public String getTp_id() {
 		return tp_id;
 	}

@@ -7,12 +7,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import com.dcms.utilities.StringPrefixedSequenceIdGenerator;
+
 @Entity(name="treatment_plan_units")
 public class Plans implements Serializable {
 
+	//@Id   // To define the primary key column of the table
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	
+	
 	@Id   // To define the primary key column of the table
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long tpu_id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "treatmentPlanUnit_seq")
+	@GenericGenerator(name = "treatmentPlanUnit_seq", strategy = "com.dcms.utilities.StringPrefixedSequenceIdGenerator",
+		parameters = { 
+				@Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "50"),
+				@Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "TPU"),
+				@Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d")
+		})
+	
+	private String tpu_id;
 	private String tp_id;
 	private String treatment;
 	private String estimatedAmount;
@@ -21,10 +37,10 @@ public class Plans implements Serializable {
 	private String lowerLeftTooth;
 	private String lowerRightTooth;
 	
-	public Long getTpu_id() {
+	public String getTpu_id() {
 		return tpu_id;
 	}
-	public void setTpu_id(Long tpu_id) {
+	public void setTpu_id(String tpu_id) {
 		this.tpu_id = tpu_id;
 	}
 	public String getTp_id() {

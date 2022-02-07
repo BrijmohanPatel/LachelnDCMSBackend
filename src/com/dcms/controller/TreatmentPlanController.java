@@ -26,12 +26,14 @@ public class TreatmentPlanController {
 	
 	@RequestMapping(value = "/addTreatmentPlan", method = RequestMethod.POST)
 	public @ResponseBody ResponseBean addTreatmentPlan(@RequestBody ResponseBean responsebean) throws Exception {
+		System.out.println("------------------------------------------------------------------------------------");
 			System.out.println("TreatmentPlanController.addTreatmentPlan() ::  " + gson.toJson(responsebean));
 			return treatmentPlanService.addTreatmentPlan(responsebean);
 	}
 	
 	@RequestMapping(value="/updateTreatmentPlan", method= RequestMethod.POST)
 	public @ResponseBody ResponseBean UpdateTreatmentPlan(@RequestBody ResponseBean responsebean) throws Exception {
+		System.out.println("------------------------------------------------------------------------------------");
 		System.out.println("TreatmentPlanController.UpdateTreatmentPlan() :: "+gson.toJson(responsebean));
 		return treatmentPlanService.updateTreatmentPlan(responsebean);
 	}
@@ -39,6 +41,7 @@ public class TreatmentPlanController {
 	
 	@RequestMapping(value="/deleteTreatmentPlan", method = RequestMethod.POST)
 	public @ResponseBody ResponseBean deteleTreatmentPlan(@RequestBody ResponseBean responsebean) throws SQLException, Exception {
+		System.out.println("------------------------------------------------------------------------------------");
 		System.out.println("TreatmentPlanController.deteleTreatmentPlan() :: "+gson.toJson(responsebean));
 		return treatmentPlanService.deteleTreatmentPlan(responsebean);
 	}

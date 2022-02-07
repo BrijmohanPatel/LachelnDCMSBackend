@@ -14,7 +14,7 @@ public class PatientData {
 	private String medical_history;
 	private String chief_complaint;
 	private String reg_date;
-	
+	private String intra_oral_examination;
 	
 	
 	public String getPatient_id() {
@@ -78,14 +78,18 @@ public class PatientData {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
+	public String getIntra_oral_examination() {
+		return intra_oral_examination;
+	}
+	public void setIntra_oral_examination(String intra_oral_examination) {
+		this.intra_oral_examination = intra_oral_examination;
+	}
 	@Override
 	public String toString() {
 		return "PatientData [patient_id=" + patient_id + ", patient_name=" + patient_name + ", gender=" + gender
 				+ ", mobile_number=" + mobile_number + ", age=" + age + ", occupation=" + occupation + ", address="
 				+ address + ", medical_history=" + medical_history + ", chief_complaint=" + chief_complaint
-				+ ", reg_date=" + reg_date + "]";
+				+ ", reg_date=" + reg_date + ", intra_oral_examination=" + intra_oral_examination + "]";
 	}
-	
-	
-	
+		
 }

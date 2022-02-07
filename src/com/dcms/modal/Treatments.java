@@ -40,7 +40,14 @@ public class Treatments implements Serializable{
 	private String upperRightTooth;
 	private String lowerLeftTooth;
 	private String lowerRightTooth;
+	private String treatment_added_date;
 	
+	public String getTreatment_added_date() {
+		return treatment_added_date;
+	}
+	public void setTreatment_added_date(String treatment_added_date) {
+		this.treatment_added_date = treatment_added_date;
+	}
 	public String getT_id() {
 		return t_id;
 	}
